@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sreehari Vinod — Portfolio</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;800&family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <!-- Particles (tsparticles CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+
+  <style>
+    /* -----------------------------
+       Variables & Base
+       ----------------------------- */
+    :root{
+      --bg: #0a0a0a;
+      --cyan: #00f0ff;
+      --magenta: #6f00ff;
+      --green: #6e4aff;
+      --glass: rgba(255,255,255,0.03);
+      --card-bg: rgba(10,10,10,0.7);
+      --accent-gradient: linear-gradient(90deg, var(--cyan), var(--magenta), var(--green));
+      --neon-shadow: 0 0 8px rgba(0,240,255,0.12), 0 0 24px rgba(255,0,170,0.06);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%;background:var(--bg);color:#ddd;font-family:'Exo 2',system-ui,Arial;margin:0}
+    a{color:inherit;text-decoration:none}
+
+    /* -----------------------------
+       Utilities
+       ----------------------------- */
+    .container{max-width:1100px;margin:0 auto;padding:3rem 1.25rem}
+    .center{display:flex;align-items:center;justify-content:center}
+
+    /* -----------------------------
+       Navigation
+       ----------------------------- */
+    header{position:fixed;top:0;left:0;right:0;z-index:40;backdrop-filter:blur(6px);padding:10px 0}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:1rem;width:100%;max-width:1200px;margin:0 auto;padding:0 1rem}
+    .brand{font-family:'Orbitron';letter-spacing:2px;color:var(--cyan);font-weight:800}
+    nav ul{display:flex;gap:18px;align-items:center;margin:0;padding:0;list-style:none}
+    nav a{font-weight:600;padding:6px 10px;border-radius:8px;transition:all .25s}
+    nav a:hover{box-shadow:0 0 18px rgba(0,240,255,0.08);transform:translateY(-2px)}
+
+    /* Animated gradient outline for nav border */
+    .outline-btn{
+      --p: 0;position:relative;padding:8px 14px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.03);
+    }
+    .outline-btn::before{content:"";position:absolute;inset:-2px;border-radius:12px;background:linear-gradient(90deg,var(--cyan),var(--magenta),var(--green));z-index:-1;filter:blur(8px);opacity:.45;transform:scale(.98);animation:glow 6s linear infinite}
+    @keyframes glow{0%{filter:blur(2px)}50%{filter:blur(10px)}100%{filter:blur(2px)}}
+
+    /* -----------------------------
+       HERO
+       ----------------------------- */
+    .hero{min-height:100vh;position:relative;display:flex;align-items:center}
+    #tsparticles{position:absolute;inset:0;z-index:0}
+    .hero-content{position:relative;z-index:2;color:#e6fefd;padding:6rem 0}
+    .hero-grid{display:grid;grid-template-columns:1fr 380px;gap:2rem;align-items:center}
+
+    .intro{
+      padding:2rem; border-radius:14px; background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      box-shadow:var(--neon-shadow); border:1px solid rgba(255,255,255,0.03)
+    }
+    h1{font-family:'Orbitron';font-size:3rem;margin:0 0 .35rem;color:var(--cyan);letter-spacing:1px;text-shadow:0 0 18px rgba(0,240,255,0.12)}
+    .subtitle{font-weight:600;margin-bottom:12px;color:#cfeff0}
+    .meta{font-family:'Exo 2';font-size:0.95rem;opacity:.9}
+
+    .cta{margin-top:1.25rem}
+    .btn{
+      display:inline-flex;align-items:center;gap:.6rem;padding:10px 18px;border-radius:12px;font-weight:700;cursor:pointer;position:relative;overflow:hidden;border:none;background:transparent
+    }
+    .btn.primary{
+      color:#000000;
+      background:var(--cyan);
+      border-radius:12px;
+      padding:10px 18px;
+      box-shadow:0 6px 30px rgba(4, 255, 255, 0.362);
+    }
+    .btn.primary::after{content:'';position:absolute;inset:0;border-radius:12px;padding:2px;background:linear-gradient(90deg,var(--cyan),var(--magenta));-webkit-mask:linear-gradient(#000,#000) content-box,linear-gradient(#000,#000);mask:linear-gradient(#000,#000) content-box,linear-gradient(#000,#000);pointer-events:none;opacity:.85}
+
+    .card-contact{padding:1.2rem;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03)}
+    .card-contact .item{display:flex;flex-direction:column;margin-bottom:8px}
+
+    /* -----------------------------
+       SECTIONS
+       ----------------------------- */
+    section{padding:6rem 0}
+    h2.section-title{font-family:'Orbitron';color:var(--magenta);letter-spacing:1px;margin-bottom:1rem}
+    p.lead{color:#c9f0ef;line-height:1.6}
+
+    /* Skills */
+    .skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+    .skill{background:var(--card-bg);padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
+    .skill-name{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-weight:600}
+    .bar{height:10px;background:rgba(255,255,255,0.04);border-radius:999px;overflow:hidden}
+    .bar > .fill{height:100%;border-radius:999px;transform-origin:left;transition:width 1s ease}
+    .fill.py{width:0;background:var(--cyan)}
+    .fill.js{width:0;background:var(--magenta)}
+    .fill.html{width:0;background:linear-gradient(90deg,var(--cyan),var(--magenta))}
+
+    /* Projects */
+    .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem}
+    .project-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:1.2rem;border-radius:12px;border:1px solid rgba(255,255,255,0.04);transition:transform .28s ease, box-shadow .28s ease;position:relative;overflow:hidden}
+    .project-card:hover{transform:translateY(-8px);box-shadow:0 18px 60px rgba(0,0,0,0.6)}
+    .project-card::after{content:'';position:absolute;inset:0;border-radius:12px;padding:2px;background:var(--accent-gradient);mix-blend-mode:screen;opacity:0;transition:opacity .28s}
+    .project-card:hover::after{opacity:0.12}
+    .project-title{font-family:'Orbitron';font-weight:700;margin-bottom:.5rem}
+    .project-desc{font-size:.95rem;opacity:.95}
+
+    /* Experience Timeline */
+    .timeline{position:relative;padding-left:18px;border-left:2px dashed rgba(255,255,255,0.03)}
+    .timeline .entry{position:relative;padding:18px 18px;margin-bottom:1.2rem;opacity:0;transform:translateX(-12px);transition:all .6s cubic-bezier(.2,.9,.2,1)}
+    .timeline .entry.visible{opacity:1;transform:none}
+    .timeline .entry::before{content:'';position:absolute;left:-11px;top:24px;width:14px;height:14px;border-radius:50%;background:var(--magenta);box-shadow:0 0 12px rgba(255,0,170,.12)}
+    .timeline .meta{font-weight:700;font-size:.92rem}
+
+    /* Contact */
+    .contact-grid{display:grid;grid-template-columns:1fr 360px;gap:1.2rem}
+    .contact-form{background:var(--card-bg);padding:1.25rem;border-radius:10px}
+    .input,textarea{width:100%;padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:#e9ffff;margin-bottom:10px}
+    .submit{display:inline-block;padding:10px 16px;border-radius:10px;font-weight:700;background:linear-gradient(90deg,var(--cyan),var(--magenta));border:none;color:#001}
+
+    /* Footer */
+    footer{padding:2rem 0;text-align:center;color:rgba(255,255,255,0.5);font-size:.9rem}
+
+    /* Responsive */
+    @media (max-width:920px){
+      .hero-grid{grid-template-columns:1fr}
+      .contact-grid{grid-template-columns:1fr}
+      nav ul{display:none}
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <header>
+    <div class="nav-inner">
+      <div class="brand">SREEHARI VINOD</div>
+      <nav>
+        <ul>
+          <li><a class="outline-btn" href="#home">Home</a></li>
+          <li><a class="outline-btn" href="#about">About</a></li>
+          <li><a class="outline-btn" href="#skills">Skills</a></li>
+          <li><a class="outline-btn" href="#projects">Projects</a></li>
+          <li><a class="outline-btn" href="#experience">Experience</a></li>
+          <li><a class="outline-btn" href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main>
+    <section id="home" class="hero">
+      <div id="tsparticles"></div>
+      <div class="container hero-content">
+        <div class="hero-grid">
+          <div class="intro">
+            <h1>SREEHARI VINOD</h1>
+            <div class="subtitle">Computer Science & Engineering Student | Full-Stack Python Developer</div>
+            <div class="meta">Thrissur, Kerala &nbsp;|&nbsp; +91 8848335305 &nbsp;|&nbsp; officialsreeharivinodk@gmail.com</div>
+
+            <div class="cta">
+              <a href="#projects" class="btn primary">View My Work</a>
+              <a href="#contact" class="btn" style="margin-left:12px;border:1px solid rgba(255,255,255,0.04);">Contact Me</a>
+            </div>
+          </div>
+
+          <aside class="card-contact">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+              <div style="font-weight:800;font-family:'Orbitron';color:var(--green)">Get in touch</div>
+              <div style="font-size:.86rem;opacity:.9">Available for internships & freelance</div>
+            </div>
+            <div class="item"><small style="opacity:.75">Location</small><div style="font-weight:700">Thrissur, Kerala</div></div>
+            <div class="item"><small style="opacity:.75">Email</small><div style="font-weight:700">officialsreeharivinodk@gmail.com</div></div>
+            <div class="item"><small style="opacity:.75">Phone</small><div style="font-weight:700">+91 8848335305</div></div>
+            <div style="margin-top:8px"><a href="SREEHARIVINOD.pdf" class="outline-btn">Download Resume</a></div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="container">
+        <h2 class="section-title">About</h2>
+        <p class="lead">Detail-oriented and motivated Computer Science and Engineering student with a strong foundation in full-stack Python development (Django, Flash) and a growing interest in AI fundamentals. Proven ability to design, develop, and deploy web applications and lead project lifecycles from conception to completion.</p>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="container">
+        <h2 class="section-title">Skills</h2>
+        <div class="skills-grid">
+          <div class="skill">
+            <div class="skill-name"><span>Python (Proficient)</span><span>90%</span></div>
+            <div class="bar"><div class="fill py" style="width:0"></div></div>
+          </div>
+
+          <div class="skill">
+            <div class="skill-name"><span>JavaScript</span><span>74%</span></div>
+            <div class="bar"><div class="fill js" style="width:0"></div></div>
+          </div>
+
+          <div class="skill">
+            <div class="skill-name"><span>HTML & CSS</span><span>82%</span></div>
+            <div class="bar"><div class="fill html" style="width:0"></div></div>
+          </div>
+
+          <div class="skill">
+            <div class="skill-name"><span>Frameworks: Flash, Django</span><span>—</span></div>
+            <div style="font-size:.92rem;opacity:.95;margin-top:8px">Familiarity with building full-stack apps and REST APIs; working knowledge of UI/UX components.</div>
+          </div>
+        </div>
+
+        <div style="margin-top:1.2rem;font-weight:700">Other Tools & Languages</div>
+        <div style="display:flex;gap:.6rem;margin-top:.6rem;flex-wrap:wrap">
+          <span class="outline-btn">Git</span>
+          <span class="outline-btn">LaTeX</span>
+          <span class="outline-btn">MySQL</span>
+          <span class="outline-btn">English</span>
+          <span class="outline-btn">Hindi</span>
+          <span class="outline-btn">Malayalam</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="container">
+        <h2 class="section-title">Projects</h2>
+        <div class="projects-grid">
+
+          <article class="project-card">
+            <div class="project-title">Health Analytics & Risk Prediction System</div>
+            <div class="project-desc">Developed a full-stack web application using Python and Flash. Rule-based analysis engine for health risk factors, BMI calculation module, and led a 3-person team through the complete SDLC.</div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-title">Interactive Drone Zone UI/UX</div>
+            <div class="project-desc">Dynamic user interface with animated transitions, carousel-based navigation system, and user-centric design approach for exhibit-style displays.</div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="container">
+        <h2 class="section-title">Professional Experience</h2>
+        <div class="timeline">
+
+          <div class="entry" id="exp-1">
+            <div class="meta">On-The-Job Trainee — Inker Robotics Pvt. Ltd. <small style="opacity:.7">May 2025 – July 2025</small></div>
+            <div style="margin-top:6px">Designed interactive UI/UX components for technology exhibits; collaborated in cross-functional teams; created technical documentation.</div>
+          </div>
+
+        </div>
+
+        <h2 class="section-title" style="margin-top:2rem">Education & Certifications</h2>
+        <div class="timeline">
+          <div class="entry" id="edu-1">
+            <div class="meta">B.Tech — Computer Science & Engineering, APJ Abdul Kalam Technological University <small style="opacity:.7">2022 - 2026</small></div>
+            <div style="margin-top:6px">GPA: 7.88/10.0</div>
+          </div>
+
+          <div class="entry" id="cert-1">
+            <div class="meta">Python Full-stack Application Development with Artificial Intelligence</div>
+            <div style="margin-top:6px">Certified LaTeX Facilitator</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="container">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-grid">
+          <form class="contact-form" onsubmit="event.preventDefault();alert('Thanks! Message sending simulated — replace with backend.');">
+            <input class="input" placeholder="Your name" required />
+            <input class="input" placeholder="Your email" required />
+            <textarea class="input" rows="5" placeholder="Message" required></textarea>
+            <button class="submit">Send Message</button>
+          </form>
+
+          <aside class="card-contact">
+            <div style="font-weight:800;font-family:'Orbitron';color:var(--cyan)">Contact Info</div>
+            <div style="margin-top:10px">LinkedIn: <a href="#">Your LinkedIn</a></div>
+            <div style="margin-top:8px">Email: officialsreeharivinodk@gmail.com</div>
+            <div style="margin-top:8px">Phone: +91 8848335305</div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">© 2024 SREEHARI VINOD. All rights reserved.</div>
+    </footer>
+  </main>
+
+  <script>
+    /* -----------------------------
+       Particles config (tsparticles)
+       ----------------------------- */
+    tsParticles.load("tsparticles", {
+      fullScreen: { enable: false },
+      fpsLimit: 60,
+      particles: {
+        number: { value: 80, density: { enable: true, area: 800 } },
+        color: { value: ["#00f0ff", "#ff00aa", "#00ff7f"] },
+        shape: { type: "circle" },
+        opacity: { value: 0.6 },
+        size: { value: { min: 1, max: 3 } },
+        move: { enable: true, speed: 0.6, outModes: { default: "bounce" } },
+        links: { enable: true, distance: 110, color: "#00f0ff", opacity: 0.06, width: 1 }
+      },
+      interactivity: {
+        events: { onHover: { enable: true, mode: "repulse" }, onClick: { enable: true, mode: "push" } },
+        modes: { repulse: { distance: 100 }, push: { quantity: 3 } }
+      },
+      detectRetina: true
+    });
+
+    /* -----------------------------
+       Smooth scroll for nav links
+       ----------------------------- */
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        e.preventDefault();
+        const target=document.querySelector(a.getAttribute('href'));
+        if(target){
+          window.scrollTo({top: target.offsetTop - 60, behavior:'smooth'});
+        }
+      })
+    })
+
+    /* -----------------------------
+       Animate skill bars on scroll
+       ----------------------------- */
+    function animateSkills(){
+      document.querySelectorAll('.fill').forEach(el=>{
+        if(el.classList.contains('py')) el.style.width='90%';
+        if(el.classList.contains('js')) el.style.width='74%';
+        if(el.classList.contains('html')) el.style.width='82%';
+      })
+    }
+
+    /* Show timeline entries when visible */
+    function revealTimeline(){
+      document.querySelectorAll('.timeline .entry').forEach(entry=>{
+        const rect=entry.getBoundingClientRect();
+        if(rect.top < window.innerHeight - 80) entry.classList.add('visible')
+      })
+    }
+
+    window.addEventListener('scroll', ()=>{
+      revealTimeline();
+    })
+
+    // initial triggers
+    window.addEventListener('load', ()=>{ animateSkills(); revealTimeline(); })
+
+    /* -----------------------------
+       Small accessibility tweak: focus outlines for keyboard users
+       ----------------------------- */
+    document.body.addEventListener('keydown', function(e){
+      if(e.key === 'Tab') document.documentElement.style.setProperty('--focus-outline','2px solid rgba(0,240,255,0.22)');
+    })
+  </script>
+
+</body>
+</html>
